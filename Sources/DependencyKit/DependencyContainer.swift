@@ -12,9 +12,13 @@ import Foundation
  This container stores and resolves dependencies either by type or by key path, allowing
  flexibility in dependency management.
 */
+@MainActor
 final class DependencyContainer {
     private var dependenciesByType: [ObjectIdentifier: Any] = [:]
     private var dependenciesByKeyPath: [PartialKeyPath<DependencyValues>: Any] = [:]
+
+    /// Shared singleton instance.
+    static let shared = DependencyContainer()
 
     init() {}
 

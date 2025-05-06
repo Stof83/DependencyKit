@@ -68,7 +68,9 @@ public struct InjectedViewModel<T> where T: AnyObject {
      - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
      */
     public init() {
-        model = DependencyContainer().resolve(T.self)!
+        Task { @MainActor in
+            model = DependencyContainer.shared.resolve(T.self)!
+        }
     }
 }
 
@@ -83,8 +85,6 @@ public struct InjectedViewModel<T> where T: AnyObject {
 @propertyWrapper
 public struct Dependency<T> {
     private var value: T
-    
-    private let container = DependencyContainer()
     
     /// Retrieves the injected class-based model.
     public var wrappedValue: T {
@@ -103,8 +103,9 @@ public struct Dependency<T> {
      
      - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
      */
+    @MainActor
     public init() {
-        value = container.resolve(T.self)!
+        value = DependencyContainer.shared.resolve(T.self)!
     }
     
     /**
@@ -112,8 +113,9 @@ public struct Dependency<T> {
 
      - Parameter keyPath: The key path for retrieving the dependency.
     */
+    @MainActor
     public init(_ keyPath: WritableKeyPath<DependencyValues, T>) {
-        self.value = container.resolve(keyPath)
+        value = DependencyContainer.shared.resolve(keyPath)
     }
 }
 

@@ -18,8 +18,9 @@ import Foundation
  @Dependency(\.baseURL) var baseURL: URL
  @Dependency(\.dataURL) var dataURL: URL
  */
+@MainActor
 public struct DependencyValues {
-    private let container = DependencyContainer()
+    private let container = DependencyContainer.shared
     
     public func register<T>(_ dependency: T, for keyPath: WritableKeyPath<DependencyValues, T>) {
         container.register(dependency, for: keyPath)
