@@ -34,8 +34,9 @@ public struct InjectedStateObject<T>: DynamicProperty where T: ObservableObject 
      
      - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
      */
+    @MainActor
     public init() {
-        _model = StateObject(wrappedValue: DependencyContainer().resolve(T.self)!)
+        _model = StateObject(wrappedValue: DependencyContainer.shared.resolve(T.self)!)
     }
 }
 
@@ -67,10 +68,9 @@ public struct InjectedViewModel<T> where T: AnyObject {
      
      - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
      */
+    @MainActor
     public init() {
-        Task { @MainActor in
-            model = DependencyContainer.shared.resolve(T.self)!
-        }
+        model = DependencyContainer.shared.resolve(T.self)!
     }
 }
 
