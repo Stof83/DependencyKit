@@ -46,7 +46,6 @@ public struct InjectedStateObject<T>: DynamicProperty where T: ObservableObject 
  - Important: The `DependencyContainer` must be properly configured with the necessary dependencies before using this property wrapper.
  - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
 */
-@MainActor
 @propertyWrapper
 public struct InjectedViewModel<T> where T: AnyObject {
     private var model: T
@@ -81,7 +80,6 @@ public struct InjectedViewModel<T> where T: AnyObject {
  - Important: The `DependencyContainer` must be properly configured with the necessary dependencies before using this property wrapper.
  - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
 */
-@MainActor
 @propertyWrapper
 public struct Dependency<T> {
     private var value: T

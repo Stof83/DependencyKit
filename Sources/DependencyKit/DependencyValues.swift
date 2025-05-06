@@ -18,7 +18,6 @@ import Foundation
  @Dependency(\.baseURL) var baseURL: URL
  @Dependency(\.dataURL) var dataURL: URL
  */
-@MainActor
 public struct DependencyValues {
     private let container = DependencyContainer.shared
     

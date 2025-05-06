@@ -8,7 +8,6 @@
 import Foundation
 
 /// The `DependencyManager` class is a concrete implementation of the `DependencyManagerProtocol` and provides access to dependencies for the application. It acts as a central repository for managing and providing instances of various dependencies throughout the application.
-@MainActor
 public final class DependencyManager: NSObject {
 
     private let container = DependencyContainer.shared
