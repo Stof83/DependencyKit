@@ -65,7 +65,7 @@ public struct InjectedStateObject<T>: DynamicProperty where T: ObservableObject 
      - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
      */
     public init() {
-        _model = StateObject(initialValue: DependencyContainer.shared.resolve(T.self)!)
+        _model = StateObject(wrappedValue: DependencyContainer.shared.resolve(T.self)!)
     }
 }
 
