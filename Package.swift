@@ -6,11 +6,8 @@ import PackageDescription
 let package = Package(
     name: "DependencyKit",
     platforms: [
-        .macOS(.v11),
-        .iOS(.v14),
-        .tvOS(.v14),
-        .watchOS(.v7),
-        .macCatalyst(.v14),
+        .macOS(.v14),
+        .iOS(.v17)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.

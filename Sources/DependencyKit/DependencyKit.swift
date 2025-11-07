@@ -7,6 +7,42 @@
 import SwiftUI
 
 /**
+ A property wrapper that provides automatic dependency injection for types
+ conforming to Swift’s new `@Observable` macro (iOS 17+).
+
+ This wrapper integrates directly with SwiftUI’s automatic observation system
+ without requiring `ObservableObject` or `@StateObject`.
+
+ - Important: The `DependencyContainer` must be properly configured before use.
+ - Precondition: `DependencyContainer.shared.resolve(T.self)` must return a valid instance.
+ */
+@MainActor
+@propertyWrapper
+public struct InjectedObservable<T>: DynamicProperty where T: Observable {
+    @State private var model: T
+    
+    /// Retrieves the injected `State` model.
+    public var wrappedValue: T {
+        get { model }
+    }
+    
+    public var projectedValue: Binding<T> {
+        self.$model
+    }
+    
+    /**
+     Creates an instance of the property wrapper.
+     
+     The model is automatically injected with dependencies upon initialization.
+     
+     - Precondition: The `DependencyContainer.shared` must be a valid instance of `DependencyContainer` with resolved dependencies.
+     */
+    public init() {
+        _model = State(wrappedValue: DependencyContainer.shared.resolve(T.self)!)
+    }
+}
+
+/**
  A property wrapper that provides dependency injection using `@State` semantics for non-observable types.
 
  Use this when the injected type doesn't conform to `ObservableObject` and doesn't require observation or updates.
