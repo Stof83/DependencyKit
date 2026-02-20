@@ -59,7 +59,19 @@ final class DependencyContainer {
      - Returns: The resolved dependency instance or `nil` if not found.
     */
     func resolve<T>(_ type: T.Type) -> T? {
-        dependenciesByType[ObjectIdentifier(type)] as? T
+        let identifier = ObjectIdentifier(type)
+            
+        guard let dependency = dependenciesByType[identifier] else {
+            print("Dependency Error: No dependency registered for type '\(type)'.")
+            return nil
+        }
+        
+        guard let resolvedDependency = dependency as? T else {
+            print("Dependency Error: Registered object for '\(type)' could not be cast to '\(T.self)'. Actual type is '\(Swift.type(of: dependency))'.")
+            return nil
+        }
+        
+        return resolvedDependency
     }
 
     /**
