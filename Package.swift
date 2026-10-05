@@ -23,5 +23,9 @@ let package = Package(
             dependencies: [
             ]
         ),
+        .testTarget(
+            name: "DependencyKitTests",
+            dependencies: ["DependencyKit"]
+        ),
     ]
 )

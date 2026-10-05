@@ -174,10 +174,13 @@ public struct Dependency<T> {
     /**
      Initializes the property wrapper and injects the dependency.
 
+     Resolution goes through the key's `DependencyValues` getter, so a default declared there
+     with `resolve(_:default:)` applies when nothing is registered.
+
      - Parameter keyPath: The key path for retrieving the dependency.
     */
     public init(_ keyPath: WritableKeyPath<DependencyValues, T>) {
-        value = DependencyContainer.shared.resolve(keyPath)
+        value = DependencyValues()[keyPath: keyPath]
     }
 }
 
