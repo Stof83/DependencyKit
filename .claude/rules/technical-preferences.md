@@ -1,0 +1,1 @@
+/Users/elmostafaelouatri/.claude/ios/rules/technical-preferences.md

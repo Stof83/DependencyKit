@@ -1,0 +1,1 @@
+/Users/elmostafaelouatri/.claude/ios/rules/codable-models.md
